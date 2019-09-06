@@ -27,7 +27,7 @@ form.addEventListener('submit', (e) => {
     // Check API
     quote.getValues(selectedCurrency, selectedCryptocurrency)
       .then(data => {
-        console.log(data)
+        ui.showResult(data.result.RAW, selectedCurrency, selectedCryptocurrency )
       })
   }
   
