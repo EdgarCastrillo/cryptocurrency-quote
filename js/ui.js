@@ -48,18 +48,48 @@ class Ui {
   showResult(result, currency, cryptocurrency) {
     console.log(result[cryptocurrency][currency])
 
+    // In case of a previous result. hide it
+    const previousResult  = document.querySelector('#results > div')
+
+    if(previousResult) {
+      previousResult.remove()
+    }
+
     const dataCurrency = result[cryptocurrency][currency]
+    
+    // Trim price digits
+    let price = dataCurrency.PRICE.toFixed(2)
+    let percentage = dataCurrency.CHANGEPCTDAY.toFixed(2)
+    let updated = new Date(dataCurrency.LASTUPDATE * 1000).toLocaleDateString('es-ES')
     
     // Build the template
     let templateHTML = `
       <div class="bg-warning">
         <div class="card-body text-light"
           <h2 class="card-title">Resultado:</h2>
-          <p>El precio de ${dataCurrency.FROMSYMBOL} a moneda ${dataCurrency.TOSYMBOL} es de : ${dataCurrency.PRICE}</p>
+          <p>El precio de ${dataCurrency.FROMSYMBOL} a moneda ${dataCurrency.TOSYMBOL} es de: $ ${price}</p>
+          <p>Variación último día: % ${percentage}</p>
+          <p>Última actualización: ${updated}</p>
         </div>
       </div>
     `
-    // Insert the result
-    document.querySelector('#results').innerHTML = templateHTML
+    this.showHideSpinner('block')
+
+    setTimeout(() => {
+      // Insert the result
+      document.querySelector('#results').innerHTML = templateHTML
+
+      // Hide spiner
+      this.showHideSpinner('none')
+    }, 3000)
+
+    
+  
+  }
+
+  // Show spinner when sending the quote
+  showHideSpinner(vista) {
+    const spinner = document.querySelector('.spinner-content')
+    spinner.style.display = vista
   }
 }
