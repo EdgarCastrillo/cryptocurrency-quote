@@ -14,22 +14,21 @@ form.addEventListener('submit', (e) => {
   // Read selected currency
   const selectCurrency = document.querySelector('#currency')
   const selectedCurrency = selectCurrency.options[selectCurrency.selectedIndex].value
-  
+
   // Read selected cryptocurrency 
-  const selectCryptocurrency = document.querySelector('#currency')
+  const selectCryptocurrency = document.querySelector('#cryptocurrency')
   const selectedCryptocurrency = selectCryptocurrency.options[selectCryptocurrency.selectedIndex].value
- 
-  console.log(selectedCurrency)
-  console.log(selectedCryptocurrency)
 
   // Check that both fields have something selected 
   if(selectedCurrency === '' || selectedCryptocurrency === '') {
     // Error alert
     ui.showMessage('Ambos campos son obligatorios', 'alert bg-danger text-center')
-    console.log('Seleciona uno...')
   } else {
     // Check API
-    console.log('Correcto')
+    quote.getValues(selectedCurrency, selectedCryptocurrency)
+      .then(data => {
+        console.log(data)
+      })
   }
   
 })

@@ -12,9 +12,11 @@ class Ui {
   buildSelect() {
     quote.getCurrencyAPI()
     .then(currencies => {
-      console.log(currencies)
+
+      // Create a select of options
       const select = document.querySelector('#cryptocurrency')
 
+      // Iterate for API results
       for(const [key, value] of Object.entries(currencies.currencies.Data)) {
         // Add Symbol and name to options selector
         const option = document.createElement('option')
