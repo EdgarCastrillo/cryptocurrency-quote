@@ -13,8 +13,14 @@ class Ui {
     quote.getCurrencyAPI()
     .then(currencies => {
       console.log(currencies)
+      const select = document.querySelector('#cryptocurrency')
+
       for(const [key, value] of Object.entries(currencies.currencies.Data)) {
-        console.log(value)
+        // Add Symbol and name to options selector
+        const option = document.createElement('option')
+        option.value = value.Symbol
+        option.appendChild(document.createTextNode(value.CoinName))
+        select.appendChild(option)
       }
     }) 
   }
